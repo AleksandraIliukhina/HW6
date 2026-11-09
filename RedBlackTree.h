@@ -24,9 +24,26 @@ public:
     // Creates a tree containing one initial value.
     RedBlackTree(int value);
 
+        // Copy constructor.
+    RedBlackTree(const RedBlackTree& other);
+
+    // Checks if a value exists in the tree.
+    bool Contains(int value) const;
+
+    // Returns the smallest value.
+    int GetMin() const;
+
+    // Returns the largest value.
+    int GetMax() const;
+
+    // Returns the number of nodes.
+    unsigned long long int Size() const;
+
     // Inserts a value into the tree.
     // Right now, only insertion into an empty tree is implemented.
     void Insert(int value);
+    // For tests that I made.
+    void PrivateTests();
 
     // Returns the values using three different traversal orders.
     // These wrappers call private recursive functions.
@@ -43,15 +60,24 @@ public:
     }
 
 private:
-    // Recursive traversal helpers.
-    // A nullptr node represents an empty subtree.
-    std::string ToInfixString(RBTNode* n) const;
-    std::string ToPrefixString(RBTNode* n) const;
-    std::string ToPostfixString(RBTNode* n) const;
-
-    // Required instance variables from the assignment.
     unsigned long long int numItems = 0;
     RBTNode* root = nullptr;
+
+    // Functions for balancing the tree.
+    void RotateLeft(RBTNode* node);
+    void RotateRight(RBTNode* node);
+    void FixInsert(RBTNode* node);
+
+    // Helper functions.
+    RBTNode* FindNode(int value) const;
+    RBTNode* MinimumNode(RBTNode* node) const;
+    RBTNode* MaximumNode(RBTNode* node) const;
+    RBTNode* CopySubtree(RBTNode* node, RBTNode* parent);
+
+    // Recursive traversal functions.
+    std::string ToInfixString(RBTNode* node) const;
+    std::string ToPrefixString(RBTNode* node) const;
+    std::string ToPostfixString(RBTNode* node) const;
 };
 
 #endif
